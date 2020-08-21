@@ -13,7 +13,10 @@ Tag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'tag',
+    modelName: 'category',
+    allowNull: false,
+    type: DataTypes.STRING,
+    len: [1]
   }
 );
 

@@ -5,7 +5,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 router.get('/', (req, res) => {
   // find all tags
-  User.findAll({
+  Tag.findAll({
     attributes: {Tag, Product}
   });
 

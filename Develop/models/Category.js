@@ -14,6 +14,9 @@ Category.init(
     freezeTableName: true,
     underscored: true,
     modelName: 'category',
+    allowNull: false,
+    type: DataTypes.STRING,
+    len: [1]
   }
 );
 

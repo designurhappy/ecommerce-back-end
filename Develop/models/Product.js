@@ -16,7 +16,10 @@ Product.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'product',
+    modelName: 'category',
+    allowNull: false,
+    type: DataTypes.STRING,
+    len: [1]
   }
 );
 
