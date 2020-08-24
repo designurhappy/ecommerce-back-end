@@ -5,8 +5,8 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 router.get('/', (req, res) => {
   // find all tags
-  Tag.findAll({
-    attributes: {Tag, Product}
+  Tag.findAll({}).then(dbTag => {
+    res.json(dbTag);
   });
 
   // be sure to include its associated Product data
@@ -20,8 +20,8 @@ router.get('/:id', (req, res) => {
     id: req.params.id
   }
 })
-  .then(dbProductData => {
-    if (!dbProductData) {
+  .then(dbTag => {
+    if (!dbTag) {
       res.status(404).json({ message: 'No product found with this id' });
       return;
     }
@@ -56,8 +56,8 @@ router.put('/:id', (req, res) => {
         id: req.params.id
       }
     }
-  ).then(dbPost => {
-    res.json(dbPost);
+  ).then(dbTag => {
+    res.json(dbTag);
   });
 });
 
