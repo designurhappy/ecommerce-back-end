@@ -54,16 +54,13 @@ router.get('/:id', (req, res) => {
 
 // create new product
 router.post('/', (req, res) => {
-  TagProduct.create({
-    product_name: "Basketball",
-    price: 200.00,
-    stock: 3,
-    tagIds: [1, 2, 3, 4]
-  }).then(dbProduct => {
-    res.json(dbProduct);
-  });
+  Product.create({
+    product_name: req.body.product.name,
+    price: req.body.price,
+    stock: req.body.stock,
+    tagIds: req.body.tagIds,
+  })
 
-  Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -88,11 +85,21 @@ router.post('/', (req, res) => {
 // update product
 router.put('/:id', (req, res) => {
   // update product data
-  Product.update(req.body, {
-    where: {
-      id: req.params.id,
+  Product.update(
+    {
+      product_name: req.body.product_name,
+      price: req.body.price,
+      stock: req.body.stock,
+      category_id: req.body.category_id,
+      tagIds: [req.body.tag_Ids],
     },
-  })
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  )
+
     .then((product) => {
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
@@ -129,12 +136,23 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
-  db.Product.destroy({
+  Product.destroy({
     where: {
       id: req.params.id
+    },
+  })
+  .then((dbProData) => {
+    if (!dbProData) {
+      res.status(404).json({
+        message: "There appears to be no products associated with this id",
+      });
+      return;
     }
-  }).then(dbTag => {
-    res.json(dbProduct);
+    res.json(dbProData);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
