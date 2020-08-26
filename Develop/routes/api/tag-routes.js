@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
   // DONE be sure to include its associated Product data
   Product.findOne({
     where: {
-      id: req.params.id,
+      id: req.params.id
     },
     include: [Product],
   })
@@ -42,7 +42,7 @@ router.put('/:id', (req, res) => {
   // DONE update a tag's name by its `id` value
   Tag.update(req.body, {
     where: {
-      id: req.params.id,
+      id: req.params.id
     },
   })
     .then((upTag) => {
@@ -56,10 +56,10 @@ router.delete('/:id', (req, res) => {
   Tag.destroy({
     where: {
       id: req.params.id
-    },
-  })
-  .then((delTag) => res.json(delTag))
-  .catch((err) => res.status(500).json(err));
+    }
+  }).then(delTag => {
+    res.json(delTag);
+  });
 });
 
 module.exports = router;

@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 app.use(require('./routes/api/category-routes'));
-app.use(require('./routes/api/proudct-routes'));
+app.use(require('./routes/api/product-routes'));
 app.use(require('./routes/api/tag-routes'));
 
 // DONE sync sequelize models to the database, then turn on the server
