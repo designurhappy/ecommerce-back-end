@@ -23,14 +23,14 @@ router.get('/:id', (req, res) => {
     include: [Product],
   })
   .then((category) => res.json(category))
-  .catch((err) => res.status(500).json(err));
+  .catch((err) => res.status(400).json(err));
 });
 
 router.post('/', (req, res) => {
   // DONE create a new category
   Category.create(req.body)
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.status(400).json(err));
 });
 
 router.put('/:id', (req, res) => {
@@ -41,11 +41,11 @@ router.put('/:id', (req, res) => {
     },
   })
   .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(500).json(err));
+  .catch((err) => res.status(400).json(err));
   });
 
 
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
   // DONE delete a category by its `id` value
   Category.destroy({
     where: {
@@ -53,7 +53,7 @@ router.delete('/', (req, res) => {
     },
   })
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.status(400).json(err));
 });
 
 module.exports = router;
