@@ -9,9 +9,7 @@ router.get('/', (req, res) => {
   Category.findAll({
     include: [Product],
   })
-    .then((categories) => {
-      res.json(categories);
-    })
+    .then((categories) => res.json(categories))
     .catch((err) => res.status(500).json(err));
 });
 
@@ -24,18 +22,14 @@ router.get('/:id', (req, res) => {
     },
     include: [Product],
   })
-  .then((category) => {
-    res.json(category);
-  })
-    .catch((err) => res.status(500).json(err));
+  .then((category) => res.json(category))
+  .catch((err) => res.status(500).json(err));
 });
 
 router.post('/', (req, res) => {
   // DONE create a new category
   Category.create(req.body)
-    .then((newCat) => {
-      res.json(newCat);
-    })
+    .then((category) => res.status(200).json(category))
     .catch((err) => res.status(500).json(err));
 });
 
@@ -46,11 +40,10 @@ router.put('/:id', (req, res) => {
       id: req.params.id,
     },
   })
-    .then((upCat) => {
-      res.json(upCat);
-    })
-    .catch((err) => res.status(500).json(err));
-});
+  .then((category) => res.status(200).json(category))
+  .catch((err) => res.status(500).json(err));
+  });
+
 
 router.delete('/', (req, res) => {
   // DONE delete a category by its `id` value
@@ -59,7 +52,7 @@ router.delete('/', (req, res) => {
       id: req.params.id,
     },
   })
-    .then((upRow) => res.json(upRow))
+    .then((category) => res.status(200).json(category))
     .catch((err) => res.status(500).json(err));
 });
 
